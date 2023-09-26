@@ -1,32 +1,23 @@
-# import time
-# import machine
-# import onewire, ds18x20
+import time
+import machine
+import onewire
+import ds18x20
+import json
+import binascii
 
-# # the device is on GPIO12
-# dat = machine.Pin(16)
+pico_id = machine.unique_id()
+pico_id_hex = binascii.hexlify(machine.unique_id()).upper()
 
-# # create the onewire object
-# ds = ds18x20.DS18X20(onewire.OneWire(dat))
+with open('sensor/config.json', 'r') as config_file:
+  config_data = json.load(config_file)
+  
+pin = config_data.get("pin")
+interval = config_data.get("interval")
 
-# # scan for devices on the bus
-# roms = ds.scan()
-# print('found devices:', roms)
-
-# # loop 10 times and print all temperatures
-# for i in range(10):
-#     print('temperatures:', end=' ')
-#     ds.convert_temp()
-#     time.sleep_ms(750)
-#     for rom in roms:
-#         print(ds.read_temp(rom), end=' ')
-#     print()
-
-import machine, onewire, ds18x20, time
- 
-ds_pin = machine.Pin(16)
+ds_pin = machine.Pin(pin)
 ds_sensor = ds18x20.DS18X20(onewire.OneWire(ds_pin))
  
-roms = ds_sensor.scan()
+roms = ds_sensor.scan() 
 print('Found DS18B20:', roms)
 
 if not roms:
@@ -34,7 +25,7 @@ if not roms:
 
 while True: 
   ds_sensor.convert_temp()
-  time.sleep_ms(750)
+  time.sleep_ms(interval)
   for rom in roms:
    print('temp:', end=' ')
    print(ds_sensor.read_temp(rom))
