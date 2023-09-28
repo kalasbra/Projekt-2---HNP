@@ -2,14 +2,20 @@ import time
 import machine
 import onewire
 import ds18x20
-import json
-import binascii
+import ujson
 
-pico_id = machine.unique_id()
-pico_id_hex = binascii.hexlify(machine.unique_id()).upper()
 
-with open('sensor/config.json', 'r') as config_file:
-  config_data = json.load(config_file)
+with open("config.json") as config_file:
+  config_data = ujson.load(config_file)
+
+def pico_id():
+  pico_id = machine.unique_id()
+  pico_id_hex = pico_id.hex()
+  return pico_id_hex
+  
+def temp_id(temp_id):
+  temp_id_hex = temp_id.hex()
+  return temp_id_hex
   
 pin = config_data.get("pin")
 interval = config_data.get("interval")
@@ -25,8 +31,7 @@ if not roms:
 
 while True: 
   ds_sensor.convert_temp()
-  time.sleep_ms(interval)
-  for rom in roms:
-   print('temp:', end=' ')
-   print(ds_sensor.read_temp(rom))
-  time.sleep(1)
+  time.sleep_ms(500)
+  for id in roms:
+      print (f"<{pico_id()}> <{temp_id(id)}> <{ds_sensor.read_temp(id)}>")
+  time.sleep(interval)
