@@ -5,7 +5,7 @@ import ds18x20
 import ujson
 
 with open("config.json") as config_file:
-    config_data = ujson.load(config_file)         
+    config_data = ujson.load(config_file) 
 
 def pico_id_get():
   pico_id = machine.unique_id()

@@ -31,7 +31,7 @@ if not roms:
 
 while True: 
   ds_sensor.convert_temp()
-  time.sleep_ms(500)
+  time.sleep_ms(750)
   for id in roms:
-      print (f"<{pico_id()}> <{temp_id(id)}> <{ds_sensor.read_temp(id)}>")
+      print (f"{pico_id()} {temp_id(id)} {ds_sensor.read_temp(id)}")
   time.sleep(interval)
