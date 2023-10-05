@@ -20,16 +20,15 @@ client.loop_start()
 
 with serial.Serial("COM3", 115200, timeout=1) as ser:
     while True:
-        line = ser.readline()   # read a '\n' terminated line
         ts = time.time()
         timeInt = int(ts)
+        line = ser.readline()   # read a '\n' terminated line
         if len(line) != 0:
             str = line.decode("utf-8")
             list_ = str.split()
             pico_id = list_[0]
             temp_id = list_[1]
             temp = float(list_[2])
-            timeInt = int(ts)
             
             TempTrunk = int(temp*1000)
             RealTopic = f"{topic}/{name}/{pico_id}/{temp_id}"
