@@ -1,10 +1,15 @@
 projekt2
 
+Detta är ett individuellt projekt där man skall bygga programvara för att dels läsa av en temperatursensor med
+MicroPython på en Raspberry Pi Pico, dels skicka informationen vidare via UART till en Raspberry Pi Zero som i
+sin tur skickar informationen vidare med Python och MQTT.
+
 sensor/config.json:
 Inställningar till GPIO pin och intervallen den skriver ut och läser av temp.
 
 hub/config.json:
 Inställningar till name, broker och topic till sändning av mqtt.
+
 BOM:
 Temperature probe DS18B20 - temp sensor
 Usb till Micro-Usb kabel - koppla mellan datorn Och Raspberry Pico
@@ -23,5 +28,5 @@ Step-by-step:
 
 MQTT:
 1. skriv in COM-porten din Raspberry är kopplad till på rad 27 i hub/main.py. ex: COM3 ifall den är kopplad till COM3
-2. se till att koden kan köra
-3. använd hjälpfilen hw2_project_help-main från Classroom för att se om man får ut något
+2. kör sensor koden paralellt hub-koden.  
+4. använd hjälpfilen hw2_project_help-main från Classroom för att se om man får ut något.
