@@ -28,5 +28,5 @@ Step-by-step:
 
 MQTT:
 1. skriv in COM-porten din Raspberry är kopplad till på rad 27 i hub/main.py. ex: COM3 ifall den är kopplad till COM3
-2. kör sensor koden paralellt hub-koden.  
+2. kör sensor koden paralellt med hub-koden.  
 4. använd hjälpfilen hw2_project_help-main från Classroom för att se om man får ut något.
